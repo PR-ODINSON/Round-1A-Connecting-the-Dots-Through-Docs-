@@ -1,0 +1,14 @@
+{
+  "name": "adobe-hackathon-backend",
+  "version": "1.0.0",
+  "description": "Document Structure Extraction Backend for Adobe India Hackathon",
+  "scripts": {
+    "dev": "docker-compose up --build",
+    "start": "docker-compose up",
+    "stop": "docker-compose down",
+    "clean": "docker-compose down --volumes --rmi all"
+  },
+  "keywords": ["adobe", "hackathon", "pdf", "nestjs", "python", "document-extraction"],
+  "author": "Adobe Hackathon Team",
+  "license": "MIT"
+} 

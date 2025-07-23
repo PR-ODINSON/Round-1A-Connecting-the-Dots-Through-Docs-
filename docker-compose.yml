@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # NestJS Backend Service
+  nestjs-backend:
+    build:
+      context: ./nestjs-backend
+      dockerfile: Dockerfile
+    container_name: adobe-nestjs-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - PYTHON_SERVICE_URL=http://python-parser:8000
+    depends_on:
+      - python-parser
+    restart: unless-stopped
+    networks:
+      - adobe-network
+    volumes:
+      - /tmp:/tmp  # For temporary file handling
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Python PDF Parser Service  
+  python-parser:
+    build:
+      context: ./python-parser
+      dockerfile: Dockerfile
+    container_name: adobe-python-parser
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app/src
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+    networks:
+      - adobe-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  adobe-network:
+    driver: bridge
+    name: adobe-hackathon-network
+
+volumes:
+  temp_storage:
+    driver: local 
