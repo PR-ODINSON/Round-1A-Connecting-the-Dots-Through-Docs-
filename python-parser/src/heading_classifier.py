@@ -312,3 +312,27 @@ class HeadingClassifier:
         title = ' '.join(word.capitalize() for word in title.split())
         
         return title 
+
+def classify_heading(font_size, font_flags):
+    """
+    Classify text as heading based on font size and style
+    
+    Args:
+        font_size (float): Font size in points
+        font_flags (int): Font style flags (bold, italic, etc.)
+        
+    Returns:
+        str or None: Heading type ("H1", "H2", "H3") or None if not a heading
+    """
+    # Bold font heuristic - check if bold flag is set
+    is_bold = font_flags & 2 != 0
+    
+    # Font size based classification
+    if font_size >= 20:
+        return "H1"
+    elif font_size >= 16 and is_bold:
+        return "H2"
+    elif font_size >= 13:
+        return "H3"
+    
+    return None 

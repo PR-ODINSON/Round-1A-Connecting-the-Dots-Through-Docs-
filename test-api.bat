@@ -7,10 +7,10 @@ set NESTJS_URL=http://localhost:3000
 set PYTHON_URL=http://localhost:8000
 
 echo.
-echo 🏥 Health Checks
+echo Health Checks
 echo ----------------
 
-echo 📡 Checking NestJS Backend...
+echo Checking NestJS Backend...
 curl -s -f "%NESTJS_URL%/health" >nul 2>&1
 if %errorlevel% == 0 (
     echo ✓ NestJS Backend Running
@@ -19,7 +19,7 @@ if %errorlevel% == 0 (
     goto :error
 )
 
-echo 📡 Checking Python Parser...
+echo Checking Python Parser...
 curl -s -f "%PYTHON_URL%/health" >nul 2>&1
 if %errorlevel% == 0 (
     echo ✓ Python Parser Running
@@ -29,10 +29,10 @@ if %errorlevel% == 0 (
 )
 
 echo.
-echo 🧪 API Endpoint Tests
+echo API Endpoint Tests
 echo ---------------------
 
-echo 🔍 Testing NestJS root endpoint...
+echo Testing NestJS root endpoint...
 curl -s "%NESTJS_URL%" >nul 2>&1
 if %errorlevel% == 0 (
     echo ✓ NestJS root endpoint OK
@@ -40,7 +40,7 @@ if %errorlevel% == 0 (
     echo ✗ NestJS root endpoint Failed
 )
 
-echo 🔍 Testing Python root endpoint...
+echo Testing Python root endpoint...
 curl -s "%PYTHON_URL%" >nul 2>&1
 if %errorlevel% == 0 (
     echo ✓ Python root endpoint OK
@@ -49,26 +49,26 @@ if %errorlevel% == 0 (
 )
 
 echo.
-echo 📖 Documentation Links
+echo Documentation Links
 echo ----------------------
 echo • NestJS API Docs: %NESTJS_URL%/api
 echo • Python API Docs: %PYTHON_URL%/docs
 echo.
 
-echo 🎯 PDF Upload Test
+echo PDF Upload Test
 echo ------------------
 echo To test PDF upload, run:
 echo curl -X POST %NESTJS_URL%/pdf-extraction/parse-pdf -H "Content-Type: multipart/form-data" -F "file=@your-document.pdf"
 echo.
 
-echo ✅ All basic tests completed!
+echo All basic tests completed!
 echo.
-echo 🚀 Ready for Adobe Hackathon evaluation!
+echo Ready for Adobe Hackathon evaluation!
 goto :end
 
 :error
 echo.
-echo ⚠️  Some services are not running. Please start with:
+echo Some services are not running. Please start with:
 echo    docker-compose up --build
 echo.
 
