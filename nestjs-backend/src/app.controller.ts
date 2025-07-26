@@ -17,11 +17,12 @@ export class AppController {
   @Get('health')
   @ApiOperation({ summary: 'Detailed health check' })
   @ApiResponse({ status: 200, description: 'Detailed service health information' })
-  getHealth(): { 
+  async getHealth(): Promise<{ 
     status: string; 
     timestamp: string; 
-    services: { nestjs: string; pythonParser: string } 
-  } {
-    return this.appService.getHealth();
+    services: { nestjs: string; pythonParser: string };
+    pythonServiceUrl: string;
+  }> {
+    return await this.appService.getHealth();
   }
 } 

@@ -8,7 +8,6 @@ import io
 import logging
 from typing import Dict, List, Any, Optional
 import fitz  # PyMuPDF
-from heading_classifier import classify_heading
 
 logger = logging.getLogger(__name__)
 
@@ -188,51 +187,3 @@ class PDFParser:
             "spans": spans_data,
             "bbox": block.get("bbox", [0, 0, 0, 0])
         } 
-
-def parse_pdf(pdf_bytes):
-    """
-    Parse PDF and extract structured content with headings
-    
-    Args:
-        pdf_bytes: Raw PDF file bytes
-        
-    Returns:
-        dict: Structured document with title and headings
-    """
-    doc = fitz.open(stream=pdf_bytes, filetype="pdf")
-    headings = []
-
-    for page_num in range(len(doc)):
-        page = doc.load_page(page_num)
-        blocks = page.get_text("dict")["blocks"]
-        
-        for block in blocks:
-            if "lines" not in block:
-                continue
-                
-            for line in block["lines"]:
-                for span in line.get("spans", []):
-                    text = span["text"].strip()
-                    if not text or len(text) < 3:
-                        continue
-                        
-                    font_size = span["size"]
-                    font_flags = span["flags"]
-                    
-                    heading_type = classify_heading(font_size, font_flags)
-                    if heading_type:
-                        headings.append({
-                            "type": heading_type,
-                            "text": text,
-                            "page": page_num + 1
-                        })
-
-    # Extract title from first heading or default
-    title = headings[0]["text"] if headings else "Untitled Document"
-    
-    doc.close()
-    
-    return {
-        "title": title,
-        "headings": headings
-    } 

@@ -9,7 +9,7 @@ export class HeadingDto {
     example: 'H1',
   })
   @IsString()
-  type: 'H1' | 'H2' | 'H3';
+  level: 'H1' | 'H2' | 'H3';
 
   @ApiProperty({
     description: 'Heading text content',
@@ -59,13 +59,13 @@ export class DocumentStructureDto {
   title: string;
 
   @ApiProperty({
-    description: 'Array of detected headings with their hierarchy',
+    description: 'Document outline with detected headings in hierarchical order',
     type: [HeadingDto],
   })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => HeadingDto)
-  headings: HeadingDto[];
+  outline: HeadingDto[];
 
   @ApiProperty({
     description: 'Additional metadata about the document processing',
