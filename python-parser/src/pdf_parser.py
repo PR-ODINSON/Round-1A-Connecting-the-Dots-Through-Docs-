@@ -8,7 +8,7 @@ import io
 import logging
 from typing import Dict, List, Any, Optional
 import fitz  # PyMuPDF
-
+    
 logger = logging.getLogger(__name__)
 
 class PDFParser:

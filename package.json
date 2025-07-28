@@ -1,14 +1,40 @@
 {
   "name": "adobe-hackathon-backend",
   "version": "1.0.0",
-  "description": "Document Structure Extraction Backend for Adobe India Hackathon",
+  "description": "Adobe India Hackathon 2025 - Round 1A: Document Structure Extraction Backend",
   "scripts": {
     "dev": "docker-compose up --build",
     "start": "docker-compose up",
     "stop": "docker-compose down",
-    "clean": "docker-compose down --volumes --rmi all"
+    "clean": "docker-compose down --volumes --rmi all",
+    "test": "bash test-api.sh",
+    "demo": "bash test-api.sh",
+    "logs": "docker-compose logs -f",
+    "status": "docker-compose ps"
   },
-  "keywords": ["adobe", "hackathon", "pdf", "nestjs", "python", "document-extraction"],
-  "author": "Adobe Hackathon Team",
-  "license": "MIT"
+  "keywords": [
+    "adobe", 
+    "hackathon", 
+    "2025", 
+    "round-1a", 
+    "document-structure-extraction", 
+    "pdf", 
+    "nestjs", 
+    "python", 
+    "fastapi", 
+    "nlp", 
+    "spacy", 
+    "nltk"
+  ],
+  "author": "Adobe Document Intelligence Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "adobe-india-hackathon-2025-round-1a"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "docker": ">=20.0.0",
+    "docker-compose": ">=2.0.0"
+  }
 } 
